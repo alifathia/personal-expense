@@ -1,0 +1,25 @@
+stages:
+  - install
+  - test
+
+cache:
+  key: node-app-cache
+  paths:
+    - node_modules/
+    
+install dependencies:
+  stage: install
+  script: npm install
+  only:
+    changes:
+      - package.json
+  tags:
+    - id, shell
+
+verify mr:
+  stage: test
+  script: npm test
+  only:
+    - merge_requests
+  tags:
+    - id, shell
